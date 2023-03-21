@@ -3,7 +3,7 @@ using UnityEngine;
 
 public class EnemySpawner : MonoBehaviour
 {
-    [SerializeField] private Enemy _enemyTemplate;
+    [SerializeField] private Enemy _prefab;
     [SerializeField] private Transform[] _spawnPoints;
 
     private bool _isActive;
@@ -14,7 +14,7 @@ public class EnemySpawner : MonoBehaviour
         _player = player;
     }
 
-    public void StartSpawner()
+    public void Start()
     {
         _isActive = true;
         int spawnInterval = 2;
@@ -22,7 +22,7 @@ public class EnemySpawner : MonoBehaviour
         StartCoroutine(Spawn(spawnInterval));
     }
 
-    public void EndSpawner()
+    public void End()
     {
         _isActive = false;
     }
@@ -30,14 +30,15 @@ public class EnemySpawner : MonoBehaviour
     private IEnumerator Spawn(int spawnInterval)
     {
         int pointNumber = Random.Range(0, _spawnPoints.Length);
+        WaitForSeconds waitForSeconds = new WaitForSeconds(spawnInterval);
 
         while (_isActive)
         {
-            Enemy enemy = Instantiate(_enemyTemplate, _spawnPoints[pointNumber].position, Quaternion.identity);
+            Enemy enemy = Instantiate(_prefab, _spawnPoints[pointNumber].position, Quaternion.identity);
             enemy.Init(_player.transform);
             pointNumber = GetNextNumber(pointNumber, _spawnPoints.Length);
 
-            yield return new WaitForSeconds(spawnInterval);
+            yield return waitForSeconds;
         }
     }
 

@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(EnemyMovement))]
 public class Enemy : MonoBehaviour
 {
     private EnemyMovement _enemyMovement;
@@ -11,12 +12,12 @@ public class Enemy : MonoBehaviour
 
     private void OnEnable()
     {
-        _enemyMovement.TargetReached += Death;
+        _enemyMovement.TargetReached += Die;
     }
 
     private void OnDisable()
     {
-        _enemyMovement.TargetReached -= Death;
+        _enemyMovement.TargetReached -= Die;
     }
 
     public void Init(Transform target)
@@ -24,7 +25,7 @@ public class Enemy : MonoBehaviour
         _enemyMovement.SetTarget(target);
     }
 
-    private void Death()
+    private void Die()
     {
         Destroy(gameObject);
     }
