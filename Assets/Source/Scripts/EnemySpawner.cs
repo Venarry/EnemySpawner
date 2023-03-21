@@ -14,7 +14,7 @@ public class EnemySpawner : MonoBehaviour
         _player = player;
     }
 
-    public void Start()
+    public void Work()
     {
         _isActive = true;
         int spawnInterval = 2;

@@ -10,6 +10,6 @@ public class Level : MonoBehaviour
     {
         Player player = Instantiate(_playerTemplate, _playerSpawnPoint.position, Quaternion.identity);
         _spawner.Init(player);
-        _spawner.Start();
+        _spawner.Work();
     }
 }
